@@ -1,33 +1,33 @@
-import DownloadTemplate from "./components/DownloadTemplate.jsx"
-import UploadFile from "./components/UploadFile.jsx"
-import React, { useEffect, useState } from 'react';
-import { getConfig } from './configLoader';
-
+import DownloadTemplate from "./components/DownloadTemplate.jsx";
+import UploadFile from "./components/UploadFile.jsx";
+import React, { useEffect, useState } from "react";
+import { getConfig } from "./configLoader";
 
 function App() {
-    const [serverUrls, setServerUrls] = useState('');
+  const [serverUrls, setServerUrls] = useState("");
 
-    useEffect(() => {
-        async function getConfigs() {
-            const url = await getConfig();
-            setServerUrls(url);
-        }
+  useEffect(() => {
+    async function getConfigs() {
+      const url = await getConfig();
+      setServerUrls(url);
+    }
 
-        getConfigs();
-    }, []);
+    getConfigs();
+  }, []);
 
   return (
-      <>
-          <div id="title">
-              <h1>Classrooms Builder</h1>
-          </div>
-          <div id="center">
-              <div id="main">
-                  <UploadFile uploadUrl={serverUrls.upload}/>
-                  <DownloadTemplate apiUrl={serverUrls.template}/></div>
-          </div>
-      </>
-  )
+    <>
+      <div id="title">
+        <h1>Classrooms Builder</h1>
+        <DownloadTemplate apiUrl={serverUrls.template} />
+      </div>
+      <div id="center">
+        <div id="main">
+          <UploadFile uploadUrl={serverUrls.upload} />
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
