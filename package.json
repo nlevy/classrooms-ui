@@ -10,6 +10,8 @@
     "preview": "NODE_ENV=prod vite preview"
   },
   "dependencies": {
+    "ag-grid-community": "^31.0.0",
+    "ag-grid-react": "^31.0.0",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
