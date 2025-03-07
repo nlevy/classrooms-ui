@@ -38,6 +38,17 @@ function App() {
     }
   };
 
+  const handleFileSelect = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.name.endsWith(".xlsx")) {
+      setFile(selectedFile);
+    }
+  };
+
+  const handleClear = () => {
+    setFile(null);
+  };
+
   return (
     <>
       <div id="title">
@@ -53,21 +64,40 @@ function App() {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          <h2>
-            {isDragging
-              ? "Drop Excel File Here"
-              : file
-              ? "Preview"
-              : "Drop Excel File Here"}
-          </h2>
-          {file && <ExcelViewer file={file} />}
+          <div className="preview-header">
+            <h2>
+              {isDragging
+                ? "Drop Excel File Here"
+                : file
+                ? "Preview"
+                : "Drop Excel File Here"}
+            </h2>
+            {file && (
+              <button className="button" onClick={handleClear}>
+                Clear
+              </button>
+            )}
+          </div>
+          {file ? (
+            <ExcelViewer file={file} />
+          ) : (
+            <div className="file-input-wrapper">
+              <input
+                type="file"
+                accept=".xlsx"
+                onChange={handleFileSelect}
+                id="file-input"
+              />
+              <label htmlFor="file-input">Choose File</label>
+            </div>
+          )}
         </div>
         <div id="main">
-          <h2>Build Classes</h2>
           <UploadFile
             uploadUrl={serverUrls.upload}
             file={file}
             setFile={setFile}
+            showFileInput={false}
           />
         </div>
       </div>

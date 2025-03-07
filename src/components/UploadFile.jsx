@@ -6,11 +6,6 @@ const UploadFile = ({ uploadUrl, file, setFile }) => {
   const [classesNumber, setClassesNumber] = useState("2");
   const [uploading, setUploading] = useState(false);
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-  };
-
   const handleValueChange = (event) => {
     setClassesNumber(event.target.value);
   };
@@ -87,14 +82,6 @@ const UploadFile = ({ uploadUrl, file, setFile }) => {
   return (
     <div>
       <div id="selections">
-        <div id="fileChooser">
-          <input
-            type="file"
-            accept=".xlsx"
-            onChange={handleFileChange}
-            style={{ marginBottom: "1rem" }}
-          />
-        </div>
         <div id="classesNumber">
           <label htmlFor="numberOfClasses">Number of Classes:</label>
           <select
