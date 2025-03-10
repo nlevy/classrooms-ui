@@ -1,5 +1,6 @@
 import DownloadTemplate from "./components/DownloadTemplate.jsx";
 import UploadFile from "./components/UploadFile.jsx";
+import DownloadResults from "./components/DownloadResults.jsx";
 import Preview from "./components/Preview.jsx";
 import React, { useEffect, useState } from "react";
 import { getConfig } from "./configLoader";
@@ -8,6 +9,7 @@ function App() {
   const [serverUrls, setServerUrls] = useState("");
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [results, setResults] = useState(null);
 
   useEffect(() => {
     async function getConfigs() {
@@ -30,14 +32,23 @@ function App() {
           setFile={setFile}
           isDragging={isDragging}
           setIsDragging={setIsDragging}
+          results={results}
         />
         <div id="main">
-          <UploadFile
-            uploadUrl={serverUrls.upload}
-            file={file}
-            setFile={setFile}
-            showFileInput={false}
-          />
+          {results ? (
+            <DownloadResults
+              results={results}
+              setResults={setResults}
+              setFile={setFile}
+            />
+          ) : (
+            <UploadFile
+              uploadUrl={serverUrls.upload}
+              file={file}
+              setFile={setFile}
+              setResults={setResults}
+            />
+          )}
         </div>
       </div>
     </>

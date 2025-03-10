@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
 
-const UploadFile = ({ uploadUrl, file, setFile }) => {
-  const [classesNumber, setClassesNumber] = useState("2");
+const UploadFile = ({ uploadUrl, file, setFile, setResults }) => {
+  const [classesNumber, setClassesNumber] = useState("5");
   const [uploading, setUploading] = useState(false);
 
   const handleValueChange = (event) => {
@@ -11,9 +11,7 @@ const UploadFile = ({ uploadUrl, file, setFile }) => {
   };
 
   const handleUpload = async () => {
-    if (!file) {
-      return;
-    }
+    if (!file) return;
 
     try {
       setUploading(true);
@@ -33,8 +31,7 @@ const UploadFile = ({ uploadUrl, file, setFile }) => {
             },
           })
           .then((response) => {
-            console.log("Upload successful:", response);
-            downloadFile(response.data);
+            setResults(response.data);
             setUploading(false);
           })
           .catch((error) => {
@@ -50,34 +47,6 @@ const UploadFile = ({ uploadUrl, file, setFile }) => {
   };
 
   const values = Array.from({ length: 14 }, (_, i) => (i + 2).toString());
-
-  const downloadFile = (jsonData) => {
-    const workbook = XLSX.utils.book_new();
-
-    Object.keys(jsonData.classes).forEach((index) => {
-      const data = jsonData.classes[index];
-      console.log(`Data for index ${index}:`, data);
-      const worksheet = XLSX.utils.json_to_sheet(data);
-      XLSX.utils.book_append_sheet(workbook, worksheet, `Classroom ${index}`);
-    });
-    const summary = XLSX.utils.json_to_sheet(jsonData.summaries);
-    XLSX.utils.book_append_sheet(workbook, summary, `Summary`);
-
-    const excelBuffer = XLSX.write(workbook, {
-      bookType: "xlsx",
-      type: "buffer",
-    });
-    const blob = new Blob([excelBuffer], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "classrooms.xlsx";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   return (
     <div>

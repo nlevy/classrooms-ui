@@ -1,7 +1,16 @@
-import React from 'react';
-import ExcelViewer from './ExcelViewer';
+import React, { useState, useEffect } from "react";
+import ExcelViewer from "./ExcelViewer";
 
-function Preview({ file, setFile, isDragging, setIsDragging }) {
+function Preview({ file, setFile, isDragging, setIsDragging, results }) {
+  const [activeView, setActiveView] = useState(null);
+
+  // When results change, set the initial active view
+  useEffect(() => {
+    if (results && Object.keys(results.classes).length > 0) {
+      setActiveView(`class${Object.keys(results.classes)[0]}`);
+    }
+  }, [results]);
+
   const handleDragOver = (e) => {
     e.preventDefault();
     setIsDragging(true);
@@ -33,6 +42,45 @@ function Preview({ file, setFile, isDragging, setIsDragging }) {
     setFile(null);
   };
 
+  const getViewData = () => {
+    if (!results || !activeView) return null;
+    if (activeView === "summary") return results.summaries;
+    const classNum = activeView.replace("class", "");
+    return results.classes[classNum];
+  };
+
+  if (results) {
+    const viewData = getViewData();
+    if (!viewData) return null; // Add safety check
+
+    return (
+      <div className="excel-viewer-container">
+        <div className="preview-header">
+          <h2>Results Preview</h2>
+        </div>
+        <div className="tabs">
+          {Object.keys(results.classes).map((classNum) => (
+            <button
+              key={`class${classNum}`}
+              className={`tab-button ${
+                activeView === `class${classNum}` ? "active" : ""
+              }`}
+              onClick={() => setActiveView(`class${classNum}`)}
+            >
+              Class {classNum}
+            </button>
+          ))}
+          <button
+            className={`tab-button ${activeView === "summary" ? "active" : ""}`}
+            onClick={() => setActiveView("summary")}
+          >
+            Summary
+          </button>
+        </div>
+        <ExcelViewer data={viewData} />
+      </div>
+    );
+  }
   return (
     <div
       className={`excel-viewer-container ${!file ? "empty" : ""} ${
@@ -73,4 +121,4 @@ function Preview({ file, setFile, isDragging, setIsDragging }) {
   );
 }
 
-export default Preview; 
+export default Preview;

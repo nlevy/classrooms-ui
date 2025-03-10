@@ -4,7 +4,7 @@ import * as XLSX from "xlsx";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
-function ExcelViewer({ file }) {
+function ExcelViewer({ file, data }) {
   const [rowData, setRowData] = useState([]);
   const [columnDefs, setColumnDefs] = useState([]);
 
@@ -28,7 +28,6 @@ function ExcelViewer({ file }) {
             width: 100,
             minWidth: 80,
             maxWidth: 150,
-            autoSize: true,
           }));
 
           const rows = jsonData.slice(1).map((row) => {
@@ -44,8 +43,23 @@ function ExcelViewer({ file }) {
         }
       };
       reader.readAsArrayBuffer(file);
+    } else if (data) {
+      // Handle direct data input
+      const columns = Object.keys(data[0] || {}).map((key) => ({
+        field: key,
+        headerName: key,
+        sortable: true,
+        filter: true,
+        resizable: true,
+        width: 100,
+        minWidth: 80,
+        maxWidth: 150,
+      }));
+
+      setColumnDefs(columns);
+      setRowData(data);
     }
-  }, [file]);
+  }, [file, data]);
 
   return (
     <div className="excel-viewer ag-theme-alpine">
@@ -57,9 +71,6 @@ function ExcelViewer({ file }) {
         defaultColDef={{
           resizable: true,
           sortable: true,
-          width: 100,
-          minWidth: 80,
-          maxWidth: 150,
         }}
       />
     </div>
