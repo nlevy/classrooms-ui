@@ -21,7 +21,7 @@ const UploadFile = ({ uploadUrl, file, setFile, setResults }) => {
     "חבר 3": "friend3",
     "חבר 4": "friend4",
     "לא עם": "notWith",
-    "מקבץ": "clusterId",
+    מקבץ: "clusterId",
   };
 
   // Translation mapping for values
@@ -48,6 +48,57 @@ const UploadFile = ({ uploadUrl, file, setFile, setResults }) => {
     });
   };
 
+  const translateResponseData = (data) => {
+    if (i18n.language === "en") return data; // No translation needed for English
+
+    const reverseTranslations = {
+      name: "שם התלמיד",
+      school: "בית ספר",
+      gender: "מגדר",
+      academicPerformance: "לימודי",
+      behavioralPerformance: "התנהגותי",
+      comments: "הערות",
+      friend1: "חבר 1",
+      friend2: "חבר 2",
+      friend3: "חבר 3",
+      friend4: "חבר 4",
+      notWith: "לא עם",
+      clusterId: "מקבץ",
+      MALE: "זכר",
+      FEMALE: "נקבה",
+      HIGH: "א",
+      MEDIUM: "ב",
+      LOW: "ג",
+      averageAcademicPerformance: "ממוצע לימודי",
+      averageBehaviouralPerformance: "ממוצע התנהגותי",
+      classNumber: "מספר כיתה",
+      malesCount: "מספר בנים",
+      studentsCount: "מספר תלמידים",
+      unwantedMatches: "התאמות לא רצויות",
+      withoutFriends: "תלמידים ללא חברים",
+    };
+
+    const translateObject = (obj) => {
+      const translated = {};
+      Object.entries(obj).forEach(([key, value]) => {
+        const translatedKey = reverseTranslations[key] || key;
+        const translatedValue = reverseTranslations[value] || value;
+        translated[translatedKey] = translatedValue;
+      });
+      return translated;
+    };
+
+    return {
+      classes: Object.fromEntries(
+        Object.entries(data.classes).map(([key, students]) => [
+          key,
+          students.map(translateObject),
+        ])
+      ),
+      summaries: data.summaries.map(translateObject),
+    };
+  };
+
   const handleValueChange = (event) => {
     setClassesNumber(event.target.value);
   };
@@ -66,7 +117,7 @@ const UploadFile = ({ uploadUrl, file, setFile, setResults }) => {
           workbook.Sheets[workbook.SheetNames[0]]
         );
 
-        // Translate data if in Hebrew
+        // Always translate input data to English for server
         if (i18n.language === "he") {
           jsonData = translateData(jsonData);
         }
@@ -78,7 +129,9 @@ const UploadFile = ({ uploadUrl, file, setFile, setResults }) => {
             },
           })
           .then((response) => {
-            setResults(response.data);
+            // Translate response data if needed
+            const translatedResults = translateResponseData(response.data);
+            setResults(translatedResults);
             setUploading(false);
           })
           .catch((error) => {
