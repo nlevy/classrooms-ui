@@ -1,6 +1,6 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 const resources = {
   en: {
@@ -20,9 +20,7 @@ const resources = {
       class: "Class",
       summary: "Summary",
       downloading: "Downloading...",
-      clearResults: "Clear Results",
-      downloadResults: "Download Results"
-    }
+    },
   },
   he: {
     translation: {
@@ -41,10 +39,8 @@ const resources = {
       class: "כיתה",
       summary: "סיכום",
       downloading: "...מוריד",
-      clearResults: "נקה תוצאות",
-      downloadResults: "הורד תוצאות"
-    }
-  }
+    },
+  },
 };
 
 i18n
@@ -52,16 +48,14 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'en',
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false,
     },
     direction: {
-      he: 'rtl',
-      en: 'ltr'
-    }
+      he: "rtl",
+      en: "ltr",
+    },
   });
 
-await i18n.init();
-
-export default i18n; 
+export default i18n;
