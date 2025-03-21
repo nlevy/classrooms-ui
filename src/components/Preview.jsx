@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ExcelViewer from "./ExcelViewer";
 
 function Preview({ file, setFile, isDragging, setIsDragging, results }) {
+  const { t } = useTranslation();
   const [activeView, setActiveView] = useState(null);
 
   // When results change, set the initial active view
@@ -56,7 +58,7 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
     return (
       <div className="excel-viewer-container">
         <div className="preview-header">
-          <h2>Results Preview</h2>
+          <h2>{t("resultsPreview")}</h2>
         </div>
         <div className="tabs">
           {Object.keys(results.classes).map((classNum) => (
@@ -67,14 +69,14 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
               }`}
               onClick={() => setActiveView(`class${classNum}`)}
             >
-              Class {classNum}
+              {t("class")} {classNum}
             </button>
           ))}
           <button
             className={`tab-button ${activeView === "summary" ? "active" : ""}`}
             onClick={() => setActiveView("summary")}
           >
-            Summary
+            {t("summary")}
           </button>
         </div>
         <ExcelViewer data={viewData} />
@@ -92,15 +94,11 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
     >
       <div className="preview-header">
         <h2>
-          {isDragging
-            ? "Drop Excel File Here"
-            : file
-            ? "Preview"
-            : "Drop Excel File Here"}
+          {isDragging ? t("dropHere") : file ? t("preview") : t("dropHere")}
         </h2>
         {file && (
           <button className="button" onClick={handleClear}>
-            Clear
+            {t("clear")}
           </button>
         )}
       </div>
@@ -114,7 +112,7 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
             onChange={handleFileSelect}
             id="file-input"
           />
-          <label htmlFor="file-input">Choose File</label>
+          <label htmlFor="file-input">{t("chooseFile")}</label>
         </div>
       )}
     </div>

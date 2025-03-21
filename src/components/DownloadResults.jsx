@@ -1,17 +1,23 @@
 import React from "react";
 import * as XLSX from "xlsx";
+import { useTranslation } from "react-i18next";
 
 const DownloadResults = ({ results, setResults, setFile }) => {
+  const { t, i18n } = useTranslation();
   const handleDownload = () => {
     const workbook = XLSX.utils.book_new();
 
     Object.keys(results.classes).forEach((index) => {
       const data = results.classes[index];
       const worksheet = XLSX.utils.json_to_sheet(data);
-      XLSX.utils.book_append_sheet(workbook, worksheet, `Class ${index}`);
+      XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        `${t("class")} ${index}`
+      );
     });
     const summary = XLSX.utils.json_to_sheet(results.summaries);
-    XLSX.utils.book_append_sheet(workbook, summary, `Summary`);
+    XLSX.utils.book_append_sheet(workbook, summary, t("summary"));
 
     const excelBuffer = XLSX.write(workbook, {
       bookType: "xlsx",
@@ -39,10 +45,10 @@ const DownloadResults = ({ results, setResults, setFile }) => {
       <div id="selections">
         <div className="download-buttons">
           <button className="button" onClick={handleDownload}>
-            Download Results
+            {t("downloadResults")}
           </button>
           <button className="button secondary" onClick={handleClear}>
-            Clear Results
+            {t("clearResults")}
           </button>
         </div>
       </div>
@@ -50,4 +56,4 @@ const DownloadResults = ({ results, setResults, setFile }) => {
   );
 };
 
-export default DownloadResults; 
+export default DownloadResults;
