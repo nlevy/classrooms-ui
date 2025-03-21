@@ -1,7 +1,9 @@
 import React from "react";
 import * as XLSX from "xlsx";
+import { useTranslation } from "react-i18next";
 
 const DownloadResults = ({ results, setResults, setFile }) => {
+  const { t } = useTranslation();
   const handleDownload = () => {
     const workbook = XLSX.utils.book_new();
 
@@ -39,10 +41,10 @@ const DownloadResults = ({ results, setResults, setFile }) => {
       <div id="selections">
         <div className="download-buttons">
           <button className="button" onClick={handleDownload}>
-            Download Results
+            {t("downloadResults")}
           </button>
           <button className="button secondary" onClick={handleClear}>
-            Clear Results
+            {t("clearResults")}
           </button>
         </div>
       </div>
