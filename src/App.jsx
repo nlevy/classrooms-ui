@@ -1,18 +1,17 @@
-import DownloadTemplate from "./components/DownloadTemplate.jsx";
 import UploadFile from "./components/UploadFile.jsx";
 import DownloadResults from "./components/DownloadResults.jsx";
 import Preview from "./components/Preview.jsx";
+import LandingPage from "./components/LandingPage.jsx";
+import Header from "./components/Header.jsx";
 import React, { useEffect, useState } from "react";
 import { getConfig } from "./configLoader";
-import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "./components/LanguageSwitcher";
 
 function App() {
-  const { t } = useTranslation();
   const [serverUrls, setServerUrls] = useState("");
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [results, setResults] = useState(null);
+  const [showLanding, setShowLanding] = useState(true);
 
   useEffect(() => {
     async function getConfigs() {
@@ -23,15 +22,21 @@ function App() {
     getConfigs();
   }, []);
 
+  const handleGetStarted = () => {
+    setShowLanding(false);
+  };
+
+  if (showLanding) {
+    return <LandingPage onGetStarted={handleGetStarted} />;
+  }
+
   return (
     <>
-      <div id="title">
-        <h1>{t("title")}</h1>
-        <div className="title-buttons">
-          <DownloadTemplate apiUrl={serverUrls.template} />
-          <LanguageSwitcher />
-        </div>
-      </div>
+      <Header
+        serverUrls={serverUrls}
+        showBackButton={true}
+        onBackClick={() => setShowLanding(true)}
+      />
       <div id="center">
         <Preview
           file={file}

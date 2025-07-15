@@ -20,6 +20,37 @@ const resources = {
       class: "Class",
       summary: "Summary",
       downloading: "Downloading...",
+      // Landing page translations
+      landingTitle: "Classrooms Builder",
+      heroTitle: "Smart Classroom Organization Made Simple",
+      heroDescription:
+        "Automatically create balanced classroom groups based on student data, friendships, and academic performance. Upload your Excel file and let our algorithm do the work.",
+      getStarted: "Get Started",
+      featuresTitle: "Key Features",
+      feature1Title: "Excel Integration",
+      feature1Description: "Simply upload your student data in Excel format",
+      feature2Title: "Balanced Classes",
+      feature2Description:
+        "Automatically balance academic and behavioral performance",
+      feature3Title: "Friend Preferences",
+      feature3Description:
+        "Respect student friendship requests and separation needs",
+      feature4Title: "Instant Results",
+      feature4Description: "Download organized classroom lists immediately",
+      howItWorksTitle: "How It Works",
+      step1Title: "Download Template",
+      step1Description:
+        "Get our Excel template with the required student data fields",
+      step2Title: "Fill Student Data",
+      step2Description:
+        "Add student names, performance levels, and friendship preferences",
+      step3Title: "Upload & Process",
+      step3Description:
+        "Upload your file and select the number of classes needed",
+      step4Title: "Download Results",
+      step4Description:
+        "Get your balanced classroom assignments in Excel format",
+      backToHome: "Back to Home",
     },
   },
   he: {
@@ -39,6 +70,31 @@ const resources = {
       class: "כיתה",
       summary: "סיכום",
       downloading: "...מוריד",
+      // Landing page translations
+      landingTitle: "בונה כיתות",
+      heroTitle: "ארגון כיתות חכם ופשוט",
+      heroDescription:
+        "צור קבוצות כיתה מאוזנות באופן אוטומטי על בסיס נתוני תלמידים, חברויות וביצועים אקדמיים. העלה את קובץ האקסל שלך ותן לאלגוריתם שלנו לעשות את העבודה.",
+      getStarted: "בואו נתחיל",
+      featuresTitle: "תכונות מרכזיות",
+      feature1Title: "אינטגרציה עם אקסל",
+      feature1Description: "פשוט העלה את נתוני התלמידים בפורמט אקסל",
+      feature2Title: "כיתות מאוזנות",
+      feature2Description: "איזון אוטומטי של ביצועים אקדמיים והתנהגותיים",
+      feature3Title: "העדפות חברות",
+      feature3Description: "כיבוד בקשות חברות של תלמידים וצרכי הפרדה",
+      feature4Title: "תוצאות מיידיות",
+      feature4Description: "הורד רשימות כיתות מאורגנות מיד",
+      howItWorksTitle: "איך זה עובד",
+      step1Title: "הורד תבנית",
+      step1Description: "קבל את תבנית האקסל שלנו עם שדות הנתונים הנדרשים",
+      step2Title: "מלא נתוני תלמידים",
+      step2Description: "הוסף שמות תלמידים, רמות ביצועים והעדפות חברות",
+      step3Title: "העלה ועבד",
+      step3Description: "העלה את הקובץ שלך ובחר את מספר הכיתות הנדרש",
+      step4Title: "הורד תוצאות",
+      step4Description: "קבל את הקצאות הכיתות המאוזנות שלך בפורמט אקסל",
+      backToHome: "חזור לעמוד הבית",
     },
   },
 };
