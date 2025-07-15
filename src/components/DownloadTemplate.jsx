@@ -47,11 +47,9 @@ const DownloadTemplate = ({ apiUrl }) => {
   };
 
   return (
-    <div>
-      <button id="template" onClick={handleDownload} disabled={downloading}>
-        {downloading ? t("downloading") : t("downloadTemplate")}
-      </button>
-    </div>
+    <button id="template" onClick={handleDownload} disabled={downloading}>
+      {downloading ? t("downloading") : t("downloadTemplate")}
+    </button>
   );
 };
 

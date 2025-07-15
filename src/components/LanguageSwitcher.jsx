@@ -1,26 +1,31 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
 
-  const handleLanguageChange = (event) => {
-    const newLang = event.target.value;
+  const handleLanguageToggle = () => {
+    const newLang = i18n.language === "en" ? "he" : "en";
     i18n.changeLanguage(newLang);
     document.dir = i18n.dir();
   };
 
+  const getFlagIcon = () => {
+    if (i18n.language === "he") {
+      return "🇮🇱"; // Israeli flag
+    }
+    return "🇬🇧"; // British flag
+  };
+
   return (
-    <select 
-      className="language-select"
-      value={i18n.language}
-      onChange={handleLanguageChange}
-      title="Change language"
+    <button
+      className="language-button"
+      onClick={handleLanguageToggle}
+      title={i18n.language === "en" ? "Switch to Hebrew" : "Switch to English"}
     >
-      <option value="en" style={{ textAlign: 'center' }}>En</option>
-      <option value="he" style={{ textAlign: 'center' }}>עב</option>
-    </select>
+      {getFlagIcon()}
+    </button>
   );
 };
 
-export default LanguageSwitcher; 
+export default LanguageSwitcher;

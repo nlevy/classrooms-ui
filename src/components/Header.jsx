@@ -11,10 +11,10 @@ const Header = ({ serverUrls, showBackButton, onBackClick }) => {
       <h1>{t("title")}</h1>
       <div className="title-buttons">
         {serverUrls && <DownloadTemplate apiUrl={serverUrls.template} />}
-        <LanguageSwitcher />
         {showBackButton && (
           <button onClick={onBackClick}>← {t("backToHome")}</button>
         )}
+        <LanguageSwitcher />
       </div>
     </div>
   );
