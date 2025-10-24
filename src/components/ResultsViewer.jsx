@@ -27,6 +27,11 @@ function ResultsViewer({ data, onDownload }) {
     return { columns, rows: sheetData };
   };
 
+  // Helper function to get student count for a sheet
+  const getStudentCount = (sheetData) => {
+    return sheetData ? sheetData.length : 0;
+  };
+
   return (
     <div className="results-viewer">
       <div className="results-header">
@@ -36,15 +41,28 @@ function ResultsViewer({ data, onDownload }) {
         </button>
       </div>
       <div className="tabs">
-        {Object.keys(sheets).map((sheetName) => (
-          <button
-            key={sheetName}
-            className={`tab-button ${sheetName === activeTab ? 'active' : ''}`}
-            onClick={() => setActiveTab(sheetName)}
-          >
-            {sheetName === 'Summary' ? 'Summary' : `Class ${sheetName}`}
-          </button>
-        ))}
+        {Object.keys(sheets).map((sheetName) => {
+          const studentCount = getStudentCount(sheets[sheetName]);
+          const isSummary = sheetName === 'Summary';
+
+          return (
+            <button
+              key={sheetName}
+              className={`tab-button ${sheetName === activeTab ? 'active' : ''} ${isSummary ? 'summary-tab' : ''}`}
+              onClick={() => setActiveTab(sheetName)}
+            >
+              {isSummary ? (
+                <>
+                  📊 Summary
+                </>
+              ) : (
+                <>
+                  Class {sheetName} <span className="student-count">({studentCount})</span>
+                </>
+              )}
+            </button>
+          );
+        })}
       </div>
       <div className="grid-container ag-theme-alpine">
         <AgGridReact

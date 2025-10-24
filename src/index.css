@@ -521,12 +521,44 @@ button:focus-visible {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border-light);
   color: var(--color-text-primary);
+  transition: var(--transition-fast);
 }
 
 .tab-button.active {
   background-color: var(--color-primary);
   color: white;
   border-color: var(--color-primary-dark);
+}
+
+.tab-button.summary-tab {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border-color: var(--color-primary-dark);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-button.summary-tab.active {
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-darker));
+  border-color: var(--color-primary-darker);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.tab-button.summary-tab:hover:not(.active) {
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  transform: translateY(-1px);
+}
+
+.student-count {
+  opacity: 0.8;
+  font-weight: 500;
+  margin-left: 0.25em;
+}
+
+.tab-button.active .student-count {
+  opacity: 0.9;
+  font-weight: 600;
 }
 
 .grid-container {

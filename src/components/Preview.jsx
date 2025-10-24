@@ -61,22 +61,28 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
           <h2>{t("resultsPreview")}</h2>
         </div>
         <div className="tabs">
-          {Object.keys(results.classes).map((classNum) => (
-            <button
-              key={`class${classNum}`}
-              className={`tab-button ${
-                activeView === `class${classNum}` ? "active" : ""
-              }`}
-              onClick={() => setActiveView(`class${classNum}`)}
-            >
-              {t("class")} {classNum}
-            </button>
-          ))}
+          {Object.keys(results.classes).map((classNum) => {
+            const studentCount = results.classes[classNum]
+              ? results.classes[classNum].length
+              : 0;
+
+            return (
+              <button
+                key={`class${classNum}`}
+                className={`tab-button ${
+                  activeView === `class${classNum}` ? "active" : ""
+                }`}
+                onClick={() => setActiveView(`class${classNum}`)}
+              >
+                {t("class")} {classNum} <span className="student-count">({studentCount})</span>
+              </button>
+            );
+          })}
           <button
-            className={`tab-button ${activeView === "summary" ? "active" : ""}`}
+            className={`tab-button summary-tab ${activeView === "summary" ? "active" : ""}`}
             onClick={() => setActiveView("summary")}
           >
-            {t("summary")}
+            📊 {t("summary")}
           </button>
         </div>
         <ExcelViewer data={viewData} />
