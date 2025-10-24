@@ -46,7 +46,22 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
 
   const getViewData = () => {
     if (!results || !activeView) return null;
-    if (activeView === "summary") return results.summaries;
+    if (activeView === "summary") {
+      // Format numeric values in summary to 3 decimal places
+      return results.summaries.map(row => {
+        const formattedRow = {};
+        Object.keys(row).forEach(key => {
+          const value = row[key];
+          // Check if value is a number and not an integer
+          if (typeof value === 'number' && !Number.isInteger(value)) {
+            formattedRow[key] = Number(value.toFixed(3));
+          } else {
+            formattedRow[key] = value;
+          }
+        });
+        return formattedRow;
+      });
+    }
     const classNum = activeView.replace("class", "");
     return results.classes[classNum];
   };
