@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { useTranslation } from "react-i18next";
+import LoadingSpinner from "./LoadingSpinner";
 
 const DownloadTemplate = ({ apiUrl }) => {
   const { t, i18n } = useTranslation();
@@ -48,7 +49,14 @@ const DownloadTemplate = ({ apiUrl }) => {
 
   return (
     <button id="template" onClick={handleDownload} disabled={downloading}>
-      {downloading ? t("downloading") : t("downloadTemplate")}
+      {downloading ? (
+        <div className="button-loading">
+          <LoadingSpinner size="small" />
+          <span>{t("downloading")}</span>
+        </div>
+      ) : (
+        t("downloadTemplate")
+      )}
     </button>
   );
 };
