@@ -3,9 +3,10 @@ import { useTranslation } from "react-i18next";
 import Header from "./Header";
 
 const LandingPage = ({ onGetStarted }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeSlide, setActiveSlide] = useState(0);
   const slides = ["features", "howItWorks"];
+  const isRTL = i18n.language === "he";
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,7 +32,7 @@ const LandingPage = ({ onGetStarted }) => {
           <div className="carousel-container">
             <div
               className="carousel-wrapper"
-              style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+              style={{ transform: `translateX(${isRTL ? '' : '-'}${activeSlide * 100}%)` }}
             >
               <div className="carousel-slide">
                 <section className="features">
