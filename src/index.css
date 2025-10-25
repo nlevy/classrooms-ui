@@ -187,6 +187,78 @@ body {
   gap: var(--spacing-xl);
 }
 
+.file-info {
+  background-color: rgba(52, 152, 219, 0.1);
+  border: 1px solid rgba(52, 152, 219, 0.3);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.file-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  gap: var(--spacing-md);
+}
+
+.file-info-row:last-child {
+  margin-bottom: 0;
+}
+
+.file-info-label {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.file-info-value {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  word-break: break-word;
+  text-align: left;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.error-message {
+  background-color: rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.4);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  color: #c0392b;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.file-error-banner {
+  background-color: rgba(231, 76, 60, 0.1);
+  border: 2px solid rgba(231, 76, 60, 0.4);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  color: #c0392b;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  text-align: center;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.excel-viewer-container.error {
+  border: 2px solid rgba(231, 76, 60, 0.4);
+}
+
 #classesNumber {
   display: flex;
   flex-direction: column;
@@ -291,6 +363,15 @@ body {
   color: var(--color-text-primary);
   font-weight: 600;
   text-align: center;
+}
+
+/* RTL Support for file info */
+[dir="rtl"] .file-info-label {
+  text-align: right;
+}
+
+[dir="rtl"] .file-info-value {
+  text-align: right;
 }
 
 /* RTL Support for selections */

@@ -51,6 +51,14 @@ const resources = {
       step4Description:
         "Get your balanced classroom assignments in Excel format",
       backToHome: "Back to Home",
+      // File upload feedback
+      file: "File",
+      students: "Students",
+      errorInvalidFileType: "Invalid file type. Please upload an Excel file (.xlsx)",
+      errorEmptyFile: "The file appears to be empty. Please check your file and try again.",
+      errorMissingColumns: "Missing required columns",
+      errorUploadFailed: "Upload failed. Please try again.",
+      errorProcessingFile: "Error processing file. Please ensure it's a valid Excel file.",
     },
   },
   he: {
@@ -95,6 +103,14 @@ const resources = {
       step4Title: "הורד תוצאות",
       step4Description: "קבל את הקצאות הכיתות המאוזנות שלך בפורמט אקסל",
       backToHome: "חזור לעמוד הבית",
+      // File upload feedback
+      file: "קובץ",
+      students: "תלמידים",
+      errorInvalidFileType: "סוג קובץ לא תקין. אנא העלה קובץ אקסל",
+      errorEmptyFile: "הקובץ נראה ריק. אנא בדוק את הקובץ ונסה שוב",
+      errorMissingColumns: "חסרות עמודות נדרשות",
+      errorUploadFailed: "ההעלאה נכשלה. אנא נסה שוב",
+      errorProcessingFile: "שגיאה בעיבוד הקובץ. אנא ודא שזה קובץ אקסל תקין",
     },
   },
 };

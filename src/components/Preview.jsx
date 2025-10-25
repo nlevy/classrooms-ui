@@ -5,6 +5,7 @@ import ExcelViewer from "./ExcelViewer";
 function Preview({ file, setFile, isDragging, setIsDragging, results }) {
   const { t } = useTranslation();
   const [activeView, setActiveView] = useState(null);
+  const [fileError, setFileError] = useState("");
 
   // When results change, set the initial active view
   useEffect(() => {
@@ -28,15 +29,27 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
     setIsDragging(false);
 
     const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile && droppedFile.name.endsWith(".xlsx")) {
-      setFile(droppedFile);
+    if (droppedFile) {
+      if (droppedFile.name.endsWith(".xlsx")) {
+        setFile(droppedFile);
+        setFileError("");
+      } else {
+        setFileError(t("errorInvalidFileType") || "Invalid file type. Please upload an Excel file (.xlsx)");
+        setTimeout(() => setFileError(""), 5000);
+      }
     }
   };
 
   const handleFileSelect = (event) => {
     const selectedFile = event.target.files[0];
-    if (selectedFile && selectedFile.name.endsWith(".xlsx")) {
-      setFile(selectedFile);
+    if (selectedFile) {
+      if (selectedFile.name.endsWith(".xlsx")) {
+        setFile(selectedFile);
+        setFileError("");
+      } else {
+        setFileError(t("errorInvalidFileType") || "Invalid file type. Please upload an Excel file (.xlsx)");
+        setTimeout(() => setFileError(""), 5000);
+      }
     }
   };
 
@@ -108,7 +121,7 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
     <div
       className={`excel-viewer-container ${!file ? "empty" : ""} ${
         isDragging ? "dragging" : ""
-      }`}
+      } ${fileError ? "error" : ""}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -123,6 +136,11 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
           </button>
         )}
       </div>
+      {fileError && (
+        <div className="file-error-banner">
+          ⚠️ {fileError}
+        </div>
+      )}
       {file ? (
         <ExcelViewer file={file} />
       ) : (
