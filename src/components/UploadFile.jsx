@@ -3,6 +3,7 @@ import axios from "axios";
 import * as XLSX from "xlsx";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./LoadingSpinner";
+import { translateError } from "../utils/errorHandler";
 
 const UploadFile = ({ uploadUrl, file, setFile, setResults }) => {
   const { t, i18n } = useTranslation();
@@ -158,11 +159,18 @@ const UploadFile = ({ uploadUrl, file, setFile, setResults }) => {
           })
           .catch((error) => {
             console.error("Error uploading:", error);
-            const errorMsg =
-              error.response?.data?.message || error.message || "Upload failed";
-            setErrorMessage(
-              t("errorUploadFailed") || `Upload failed: ${errorMsg}`
-            );
+
+            if (error.response?.data?.error?.code) {
+              const translatedError = translateError(
+                error.response.data,
+                t,
+                i18n.language
+              );
+              setErrorMessage(translatedError);
+            } else {
+              setErrorMessage(t("errorUploadFailed") || "Upload failed");
+            }
+
             setUploading(false);
             setUploadProgress(0);
           });
