@@ -97,9 +97,8 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
             return (
               <button
                 key={`class${classNum}`}
-                className={`tab-button ${
-                  activeView === `class${classNum}` ? "active" : ""
-                }`}
+                className={`tab-button ${activeView === `class${classNum}` ? "active" : ""
+                  }`}
                 onClick={() => setActiveView(`class${classNum}`)}
               >
                 {t("class")} {classNum} <span className="student-count">({studentCount})</span>
@@ -119,9 +118,8 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
   }
   return (
     <div
-      className={`excel-viewer-container ${!file ? "empty" : ""} ${
-        isDragging ? "dragging" : ""
-      } ${fileError ? "error" : ""}`}
+      className={`excel-viewer-container ${!file ? "empty" : ""} ${isDragging ? "dragging" : ""
+        } ${fileError ? "error" : ""}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -131,7 +129,7 @@ function Preview({ file, setFile, isDragging, setIsDragging, results }) {
           {isDragging ? t("dropHere") : file ? t("preview") : t("dropHere")}
         </h2>
         {file && (
-          <button className="button" onClick={handleClear}>
+          <button className="clear-button" onClick={handleClear}>
             {t("clear")}
           </button>
         )}

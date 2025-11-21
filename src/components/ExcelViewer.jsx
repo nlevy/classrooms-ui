@@ -29,9 +29,7 @@ function ExcelViewer({ file, data }) {
               sortable: true,
               filter: true,
               resizable: true,
-              width: 100,
-              minWidth: 80,
-              maxWidth: 150,
+              minWidth: 120,
             }));
 
             const rows = jsonData.slice(1).map((row) => {
@@ -62,9 +60,7 @@ function ExcelViewer({ file, data }) {
           sortable: true,
           filter: true,
           resizable: true,
-          width: 100,
-          minWidth: 80,
-          maxWidth: 150,
+          minWidth: 120,
         }));
 
         setColumnDefs(columns);
@@ -92,6 +88,11 @@ function ExcelViewer({ file, data }) {
           defaultColDef={{
             resizable: true,
             sortable: true,
+            flex: 1,
+            minWidth: 120,
+          }}
+          onGridReady={(params) => {
+            params.api.sizeColumnsToFit();
           }}
         />
       )}
